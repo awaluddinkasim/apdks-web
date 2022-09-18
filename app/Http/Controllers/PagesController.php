@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gejala;
+use App\Models\Penyakit;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -22,13 +24,75 @@ class PagesController extends Controller
     {
         switch ($jenis) {
             case 'penyakit':
-                return view('pages.master-penyakit');
+                $data = [
+                    'daftarPenyakit' => Penyakit::orderBy('nama')->get()
+                ];
+
+                return view('pages.master-penyakit', $data);
 
             case 'gejala':
-                return view('pages.master-gejala');
+                $data = [
+                    'daftarGejala' => Gejala::orderBy('keterangan')->get()
+                ];
+
+                return view('pages.master-gejala', $data);
 
             case 'relasi':
-                return view('pages.master-relasi');
+                $data = [
+                    'daftarPenyakit' => Penyakit::orderBy('nama')->get(),
+                    'daftarGejala' => Gejala::orderBy('keterangan')->get()
+                ];
+
+                return view('pages.master-relasi', $data);
+
+            default:
+                return redirect()->route('dashboard');
+        }
+    }
+
+    public function masterDataStore(Request $request, $jenis)
+    {
+        switch ($jenis) {
+            case 'penyakit':
+                $penyakit = new Penyakit();
+                $penyakit->nama = $request->nama;
+                $penyakit->penyebab = $request->penyebab;
+                $penyakit->keterangan = $request->keterangan;
+                $penyakit->solusi = $request->solusi;
+                $penyakit->save();
+
+                return redirect()->back()->with('success', 'Input data berhasil');
+
+            case 'gejala':
+                $gejala = new Gejala();
+                $gejala->keterangan = $request->gejala;
+                $gejala->save();
+
+                return redirect()->back()->with('success', 'Input data berhasil');
+
+            case 'relasi':
+                return redirect()->back()->with('success', 'Relasi berhasil ditambah');
+
+            default:
+                return redirect()->route('dashboard');
+        }
+    }
+
+    public function masterDataDelete(Request $request, $jenis)
+    {
+        switch ($jenis) {
+            case 'penyakit':
+                Penyakit::find($request->id)->delete();
+
+                return redirect()->back()->with('success', 'Data telah dihapus');
+
+            case 'gejala':
+                Gejala::find($request->id)->delete();
+
+                return redirect()->back()->with('success', 'Data telah dihapus');
+
+            case 'relasi':
+                return redirect()->back()->with('success', 'Relasi berhasil dihapus');
 
             default:
                 return redirect()->route('dashboard');

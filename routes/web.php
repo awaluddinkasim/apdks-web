@@ -15,6 +15,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');
 
     Route::get('/master/{jenis}', [PagesController::class, 'masterData'])->name('master-data');
+    Route::post('/master/{jenis}', [PagesController::class, 'masterDataStore'])->name('master-data.store');
+    Route::delete('/master/{jenis}', [PagesController::class, 'masterDataDelete'])->name('master-data.delete');
 
     Route::get('/daftar-pengguna', [PagesController::class, 'daftarPengguna'])->name('users');
     Route::put('/daftar-pengguna', [PagesController::class, 'penggunaUpdate'])->name('user.update');
