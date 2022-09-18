@@ -29,7 +29,6 @@
                             <th>#</th>
                             <th>Username</th>
                             <th>Nama Lengkap</th>
-                            <th>Jenis Kelamin</th>
                             <th>Umur</th>
                             <th></th>
                         </tr>
@@ -40,7 +39,6 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->username }}</td>
                                 <td>{{ $user->nama }}</td>
-                                <td>{{ $user->jk }}</td>
                                 <td>{{ Carbon\Carbon::parse($user->tgl_lahir)->age }} Tahun</td>
                                 <td class="text-center">
                                     <button class="btn btn-primary btn-sm">

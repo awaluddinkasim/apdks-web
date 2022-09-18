@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('nama');
             $table->string('username')->unique();
             $table->string('password');
-            $table->enum('jk', ['L', 'P']);
             $table->date('tgl_lahir');
             $table->rememberToken();
             $table->timestamps();
