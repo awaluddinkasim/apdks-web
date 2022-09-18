@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-end align-items-center mb-3">
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                            data-target="#exampleModal">
+                            data-target="#gejalaModal">
                             Tambah
                         </button>
                     </div>
@@ -70,16 +70,16 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="gejalaModal" tabindex="-1" aria-labelledby="gejalaModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Input Gejala</h5>
+                    <h5 class="modal-title" id="gejalaModalLabel">Input Gejala</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" method="POST">
+                <form action="{{ route('master-data.store', 'gejala') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
