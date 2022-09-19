@@ -23,18 +23,39 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-end align-items-center mb-3">
-                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                    data-target="#penyakitModal">
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#penyakitModal">
                     Tambah
                 </button>
             </div>
 
             <div class="row">
-                <div class="col-md-5">
-
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <label for="penyakit">Nama Penyakit</label>
+                        <select name="penyakit" id="penyakit">
+                            <option value="" selected hidden>Pilih</option>
+                            @foreach ($daftarPenyakit as $penyakit)
+                                <option value="{{ $penyakit->id }}">{{ $penyakit->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <div class="col-md-7">
-
+                <div class="col-lg-7">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Gejala</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="gejalaTable">
+                                <tr>
+                                    <td colspan="2" class="text-center">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,7 +66,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="penyakitModalLabel">Input Penyakit</h5>
+                    <h5 class="modal-title" id="penyakitModalLabel">Input Relasi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -54,21 +75,22 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="nama">Nama Penyakit</label>
-                            <input type="text" class="form-control" id="nama" name="nama" autocomplete="off"
-                                required>
+                            <label for="penyakit">Nama Penyakit</label>
+                            <select name="penyakit" id="penyakit">
+                                <option value="" selected hidden>Pilih</option>
+                                @foreach ($daftarPenyakit as $penyakit)
+                                    <option value="{{ $penyakit->id }}">{{ $penyakit->nama }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="penyebab">Penyebab</label>
-                            <textarea class="form-control" id="penyebab" rows="3" name="penyebab" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="keterangan">Keterangan</label>
-                            <textarea class="form-control" id="keterangan" rows="3" name="keterangan" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="solusi">Solusi</label>
-                            <textarea class="form-control" id="solusi" rows="3" name="solusi" required></textarea>
+                            <label for="gejala">Gejala</label>
+                            <select name="gejala" id="gejala">
+                                <option value="" selected hidden>Pilih</option>
+                                @foreach ($daftarGejala as $gejala)
+                                    <option value="{{ $gejala->id }}">{{ $gejala->keterangan }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -80,3 +102,18 @@
         </div>
     </div>
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/selectize/selectize.bootstrap4.min.css') }}">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('assets/vendor/selectize/selectize.min.js') }}"></script>
+    <script>
+        $("select").selectize({
+            onChange: function(value) {
+                alert(value);
+            }
+        });
+    </script>
+@endpush
