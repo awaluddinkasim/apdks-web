@@ -9,9 +9,4 @@ class Penyakit extends Model
 {
     use HasFactory;
     protected $table = 'penyakit';
-
-    public function gejala()
-    {
-        return $this->hasManyThrough(Gejala::class, Relasi::class, 'id_penyakit', 'id_gejala');
-    }
 }

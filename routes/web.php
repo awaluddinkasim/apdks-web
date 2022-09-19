@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
@@ -24,4 +25,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/profil', [PagesController::class, 'profil'])->name('profil');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::middleware('ajax')->group(function () {
+        Route::get('/relasi/gejala', [AjaxController::class, 'relasiGejala']);
+    });
 });

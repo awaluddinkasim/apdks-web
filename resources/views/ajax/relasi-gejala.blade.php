@@ -1,11 +1,11 @@
-@forelse ($daftarGejala as $gejala)
+@forelse ($daftarRelasi as $relasi)
     <tr>
-        <td>{{ $gejala->keterangan }}</td>
+        <td>{{ $relasi->gejala->keterangan }}</td>
         <td class="text-center">
             <form action="{{ route('master-data.delete', 'relasi') }}" class="d-inline" method="POST">
                 @method('DELETE')
                 @csrf
-                <input type="hidden" name="id" value="{{ $gejala->id }}">
+                <input type="hidden" name="id" value="{{ $relasi->id }}">
                 <button class="btn btn-danger btn-sm">
                     <i class="fas fa-trash"></i>
                 </button>

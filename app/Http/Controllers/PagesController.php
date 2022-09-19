@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Gejala;
 use App\Models\Penyakit;
+use App\Models\Relasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -71,6 +72,11 @@ class PagesController extends Controller
                 return redirect()->back()->with('success', 'Input data berhasil');
 
             case 'relasi':
+                $relasi = new Relasi();
+                $relasi->id_penyakit = $request->penyakit;
+                $relasi->id_gejala = $request->gejala;
+                $relasi->save();
+
                 return redirect()->back()->with('success', 'Relasi berhasil ditambah');
 
             default:
@@ -92,6 +98,8 @@ class PagesController extends Controller
                 return redirect()->back()->with('success', 'Data telah dihapus');
 
             case 'relasi':
+                Relasi::find($request->id)->delete();
+
                 return redirect()->back()->with('success', 'Relasi berhasil dihapus');
 
             default:

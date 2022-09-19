@@ -31,8 +31,8 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="form-group">
-                        <label for="penyakit">Nama Penyakit</label>
-                        <select name="penyakit" id="penyakit">
+                        <label for="jenisPenyakit">Nama Penyakit</label>
+                        <select name="jenis-penyakit" id="jenisPenyakit">
                             <option value="" selected hidden>Pilih</option>
                             @foreach ($daftarPenyakit as $penyakit)
                                 <option value="{{ $penyakit->id }}">{{ $penyakit->nama }}</option>
@@ -110,10 +110,28 @@
 @push('scripts')
     <script src="{{ asset('assets/vendor/selectize/selectize.min.js') }}"></script>
     <script>
-        $("select").selectize({
+        $("#jenisPenyakit").selectize({
+            onInitialize: function() {
+                this.clear()
+                $.ajax({
+                    url: '/relasi/gejala?id=',
+                    type: 'GET',
+                    success: function (result) {
+                        $('#gejalaTable').html(result);
+                    }
+                })
+            },
             onChange: function(value) {
-                alert(value);
+                $.ajax({
+                    url: '/relasi/gejala?id='+value,
+                    type: 'GET',
+                    success: function (result) {
+                        $('#gejalaTable').html(result);
+                    }
+                })
             }
         });
+
+        $("select").selectize();
     </script>
 @endpush
