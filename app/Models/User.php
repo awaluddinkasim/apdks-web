@@ -27,6 +27,8 @@ class User extends Authenticatable
         'tgl_lahir',
     ];
 
+    protected $appends = ['umur'];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -37,17 +39,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function tglLahir(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value) => Carbon::parse($value)->isoFormat("D MMMM YYYY")
-        );
-    }
-
-    public function umur(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value) => Carbon::parse($value)->age
-        );
+    public function getUmurAttribute() {
+        return Carbon::parse($this->tgl_lahir)->age;
     }
 }
