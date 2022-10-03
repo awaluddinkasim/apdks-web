@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gejala;
-use App\Models\Penyakit;
+use App\Models\Stadium;
 use App\Models\Relasi;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,12 +24,12 @@ class PagesController extends Controller
     public function masterData($jenis)
     {
         switch ($jenis) {
-            case 'penyakit':
+            case 'stadium':
                 $data = [
-                    'daftarPenyakit' => Penyakit::orderBy('nama')->get()
+                    'daftarKanker' => Stadium::orderBy('stadium')->get()
                 ];
 
-                return view('pages.master-penyakit', $data);
+                return view('pages.master-kanker', $data);
 
             case 'gejala':
                 $data = [
@@ -40,7 +40,7 @@ class PagesController extends Controller
 
             case 'relasi':
                 $data = [
-                    'daftarPenyakit' => Penyakit::orderBy('nama')->get(),
+                    'daftarKanker' => Stadium::orderBy('stadium')->get(),
                     'daftarGejala' => Gejala::orderBy('keterangan')->get()
                 ];
 
@@ -54,13 +54,18 @@ class PagesController extends Controller
     public function masterDataStore(Request $request, $jenis)
     {
         switch ($jenis) {
-            case 'penyakit':
-                $penyakit = new Penyakit();
-                $penyakit->nama = $request->nama;
-                $penyakit->penyebab = $request->penyebab;
-                $penyakit->keterangan = $request->keterangan;
-                $penyakit->solusi = $request->solusi;
-                $penyakit->save();
+            case 'stadium':
+                $check = Stadium::where('stadium', $request->stadium)->first();
+                if ($check) {
+                    return redirect()->back()->with('failed', "Kanker dengan stadium tersebut sudah terinput sebelumnya");
+                }
+
+                $stadium = new Stadium();
+                $stadium->stadium = $request->stadium;
+                $stadium->penyebab = $request->penyebab;
+                $stadium->keterangan = $request->keterangan;
+                $stadium->solusi = $request->solusi;
+                $stadium->save();
 
                 return redirect()->back()->with('success', 'Input data berhasil');
 
@@ -72,14 +77,14 @@ class PagesController extends Controller
                 return redirect()->back()->with('success', 'Input data berhasil');
 
             case 'relasi':
-                $check = Relasi::where('id_penyakit', $request->penyakit)->where('id_gejala', $request->gejala)->first();
+                $check = Relasi::where('id_kanker_serviks', $request->penyakit)->where('id_gejala', $request->gejala)->first();
 
                 if ($check) {
                     return redirect()->back()->with('failed', 'Relasi sudah terdaftar sebelumnya');
                 }
 
                 $relasi = new Relasi();
-                $relasi->id_penyakit = $request->penyakit;
+                $relasi->id_kanker_serviks = $request->stadium;
                 $relasi->id_gejala = $request->gejala;
                 $relasi->save();
 
@@ -93,8 +98,8 @@ class PagesController extends Controller
     public function masterDataDelete(Request $request, $jenis)
     {
         switch ($jenis) {
-            case 'penyakit':
-                Penyakit::find($request->id)->delete();
+            case 'stadium':
+                Stadium::find($request->id)->delete();
 
                 return redirect()->back()->with('success', 'Data telah dihapus');
 

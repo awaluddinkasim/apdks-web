@@ -36,7 +36,7 @@
         </a>
         <div id="collapseTwo" class="collapse {{ Request::segment(1) == "master" ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item {{ Request::segment(2) == "penyakit" ? 'active' : '' }}" href="{{ route('master-data', 'penyakit') }}">Penyakit</a>
+                <a class="collapse-item {{ Request::segment(2) == "stadium" ? 'active' : '' }}" href="{{ route('master-data', 'stadium') }}">Stadium</a>
                 <a class="collapse-item {{ Request::segment(2) == "gejala" ? 'active' : '' }}" href="{{ route('master-data', 'gejala') }}">Gejala</a>
                 <a class="collapse-item {{ Request::segment(2) == "relasi" ? 'active' : '' }}" href="{{ route('master-data', 'relasi') }}">Relasi</a>
             </div>

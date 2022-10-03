@@ -10,7 +10,7 @@ class AjaxController extends Controller
     public function relasiGejala(Request $request)
     {
         $data = [
-            'daftarRelasi' => Relasi::where('id_penyakit', $request->id)->get()->sortBy('gejala.keterangan')
+            'daftarRelasi' => Relasi::where('id_kanker_serviks', $request->id)->get()->sortBy('gejala.keterangan')
         ];
 
         return view('ajax.relasi-gejala', $data);

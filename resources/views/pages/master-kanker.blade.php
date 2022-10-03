@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Master Data Penyakit')
+@section('title', 'Master Data Kanker')
 
 @section('content')
     @if (Session::has('success'))
@@ -30,7 +30,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-end align-items-center mb-3">
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                            data-target="#penyakitModal">
+                            data-target="#kankerModal">
                             Tambah
                         </button>
                     </div>
@@ -39,24 +39,24 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Penyakit</th>
+                                    <th>Kanker</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($daftarPenyakit as $penyakit)
+                                @forelse ($daftarKanker as $kanker)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $penyakit->nama }}</td>
+                                        <td>Kanker Serviks {{ $kanker->stadium }}</td>
                                         <td class="text-center">
                                             <button class="btn btn-success btn-sm">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <form action="{{ route('master-data.delete', 'penyakit') }}" class="d-inline"
+                                            <form action="{{ route('master-data.delete', 'stadium') }}" class="d-inline"
                                                 method="POST">
                                                 @method('DELETE')
                                                 @csrf
-                                                <input type="hidden" name="id" value="{{ $penyakit->id }}">
+                                                <input type="hidden" name="id" value="{{ $kanker->id }}">
                                                 <button class="btn btn-danger btn-sm">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
@@ -77,21 +77,21 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="penyakitModal" tabindex="-1" aria-labelledby="penyakitModalLabel" aria-hidden="true">
+    <div class="modal fade" id="kankerModal" tabindex="-1" aria-labelledby="kankerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="penyakitModalLabel">Input Penyakit</h5>
+                    <h5 class="modal-title" id="kankerModalLabel">Input Penyakit</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('master-data.store', 'penyakit') }}" method="POST">
+                <form action="{{ route('master-data.store', 'stadium') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="nama">Nama Penyakit</label>
-                            <input type="text" class="form-control" id="nama" name="nama" autocomplete="off"
+                            <label for="stadium">Stadium Kanker</label>
+                            <input type="number" max="4" class="form-control" id="stadium" name="stadium" autocomplete="off"
                                 required>
                         </div>
                         <div class="form-group">

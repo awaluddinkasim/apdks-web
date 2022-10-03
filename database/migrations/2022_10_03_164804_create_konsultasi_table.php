@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('relasi', function (Blueprint $table) {
+        Schema::create('konsultasi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_kanker_serviks');
+            $table->foreignId('id_user');
             $table->foreignId('id_gejala');
+            $table->enum('keluhan', ['Ya', 'Tidak']);
             $table->timestamps();
 
-            $table->foreign('id_kanker_serviks')->references('id')->on('kanker_serviks')
+            $table->foreign('id_user')->references('id')->on('users')
             ->onUpdate('cascade')
             ->onDelete('cascade');
 
@@ -36,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('relasi');
+        Schema::dropIfExists('konsultasi');
     }
 };

@@ -31,11 +31,11 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="form-group">
-                        <label for="jenisPenyakit">Penyakit</label>
-                        <select name="jenis-penyakit" id="jenisPenyakit">
+                        <label for="jenisStadium">Stadium Kanker</label>
+                        <select name="jenis-stadium" id="jenisStadium">
                             <option value="" selected hidden>Pilih</option>
-                            @foreach ($daftarPenyakit as $penyakit)
-                                <option value="{{ $penyakit->id }}">{{ $penyakit->nama }}</option>
+                            @foreach ($daftarKanker as $kanker)
+                                <option value="{{ $kanker->id }}">Kanker Serviks {{ $kanker->stadium }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -75,11 +75,11 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="penyakit">Nama Penyakit</label>
-                            <select name="penyakit" id="penyakit">
+                            <label for="stadium">Stadium Kanker</label>
+                            <select name="stadium" id="stadium">
                                 <option value="" selected hidden>Pilih</option>
-                                @foreach ($daftarPenyakit as $penyakit)
-                                    <option value="{{ $penyakit->id }}">{{ $penyakit->nama }}</option>
+                                @foreach ($daftarKanker as $kanker)
+                                    <option value="{{ $kanker->id }}">Kanker Serviks {{ $kanker->stadium }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -110,7 +110,7 @@
 @push('scripts')
     <script src="{{ asset('assets/vendor/selectize/selectize.min.js') }}"></script>
     <script>
-        $("#jenisPenyakit").selectize({
+        $("#jenisStadium").selectize({
             onInitialize: function() {
                 this.clear()
                 $.ajax({

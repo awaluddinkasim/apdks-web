@@ -16,6 +16,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get('/gejala', [ApiController::class, 'gejala']);
+    Route::post('/konsultasi', [ApiController::class, 'konsultasi']);
 
     Route::get('/logout', [AuthController::class, 'userLogout']);
 });
