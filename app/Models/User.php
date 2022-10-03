@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Attribute;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -33,4 +36,18 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function tglLahir(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::parse($value)->isoFormat("D MMMM YYYY")
+        );
+    }
+
+    public function umur(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::parse($value)->age
+        );
+    }
 }

@@ -39,7 +39,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->username }}</td>
                                 <td>{{ $user->nama }}</td>
-                                <td>{{ Carbon\Carbon::parse($user->tgl_lahir)->age }} Tahun</td>
+                                <td>{{ $user->umur }} Tahun</td>
                                 <td class="text-center">
                                     <button class="btn btn-primary btn-sm">
                                         <i class="fas fa-edit"></i>

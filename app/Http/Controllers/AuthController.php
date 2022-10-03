@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -28,5 +30,39 @@ class AuthController extends Controller
         Auth::logout();
 
         return redirect()->route('login');
+    }
+
+    public function userRegister(Request $request)
+    {
+        $user = new User();
+        $user->nama = $request->nama;
+        $user->username = $request->username;
+        $user->password = bcrypt($request->password);
+        $user->tgl_lahir = $request->tgl_lahir;
+        $user->save();
+
+        return response()->json([
+            'message' => "success"
+        ], 200);
+    }
+
+    public function userLogin(Request $request)
+    {
+        $user = User::where('username', $request->username)->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                $token = $user->createToken('auth-token')->plainTextToken;
+
+                return response()->json([
+                    'message' => 'Berhasil',
+                    'user' => $user,
+                    'token' => $token
+                ], 200);
+            }
+        }
+
+        return response()->json([
+            'message' => 'Username atau Password salah'
+        ], 401);
     }
 }
