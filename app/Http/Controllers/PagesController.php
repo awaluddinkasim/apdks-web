@@ -14,7 +14,7 @@ class PagesController extends Controller
     {
         $data = [
             'pengguna' => User::all()->count(),
-            'penyakit' => 0,
+            'gejala' => Gejala::all()->count(),
             'konsul' => 0,
         ];
 
@@ -41,7 +41,7 @@ class PagesController extends Controller
             case 'relasi':
                 $data = [
                     'daftarKanker' => Stadium::orderBy('stadium')->get(),
-                    'daftarGejala' => Gejala::orderBy('keterangan')->get()
+                    'daftarGejala' => Gejala::doesntHave('relasi')->orderBy('keterangan')->get()
                 ];
 
                 return view('pages.master-relasi', $data);
@@ -77,10 +77,10 @@ class PagesController extends Controller
                 return redirect()->back()->with('success', 'Input data berhasil');
 
             case 'relasi':
-                $check = Relasi::where('id_kanker_serviks', $request->penyakit)->where('id_gejala', $request->gejala)->first();
+                $check = Relasi::where('id_kanker_serviks', $request->penyakit)->first();
 
                 if ($check) {
-                    return redirect()->back()->with('failed', 'Relasi sudah terdaftar sebelumnya');
+                    return redirect()->back()->with('failed', 'Gejala sudah terdaftar sebelumnya');
                 }
 
                 $relasi = new Relasi();

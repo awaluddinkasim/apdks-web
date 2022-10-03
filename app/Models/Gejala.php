@@ -9,4 +9,9 @@ class Gejala extends Model
 {
     use HasFactory;
     protected $table = 'gejala';
+
+    public function relasi()
+    {
+        return $this->hasOne(Relasi::class, 'id_gejala');
+    }
 }

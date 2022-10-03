@@ -35,7 +35,7 @@
                         <select name="jenis-stadium" id="jenisStadium">
                             <option value="" selected hidden>Pilih</option>
                             @foreach ($daftarKanker as $kanker)
-                                <option value="{{ $kanker->id }}">Kanker Serviks {{ $kanker->stadium }}</option>
+                                <option value="{{ $kanker->id }}">Kanker Serviks Stadium {{ $kanker->stadium }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -79,7 +79,7 @@
                             <select name="stadium" id="stadium">
                                 <option value="" selected hidden>Pilih</option>
                                 @foreach ($daftarKanker as $kanker)
-                                    <option value="{{ $kanker->id }}">Kanker Serviks {{ $kanker->stadium }}</option>
+                                    <option value="{{ $kanker->id }}">Kanker Serviks Stadium {{ $kanker->stadium }}</option>
                                 @endforeach
                             </select>
                         </div>

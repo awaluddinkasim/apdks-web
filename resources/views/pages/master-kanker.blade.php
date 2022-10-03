@@ -47,7 +47,7 @@
                                 @forelse ($daftarKanker as $kanker)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>Kanker Serviks {{ $kanker->stadium }}</td>
+                                        <td>Kanker Serviks Stadium {{ $kanker->stadium }}</td>
                                         <td class="text-center">
                                             <button class="btn btn-success btn-sm">
                                                 <i class="fas fa-edit"></i>

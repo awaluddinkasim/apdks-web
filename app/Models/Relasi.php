@@ -10,9 +10,9 @@ class Relasi extends Model
     use HasFactory;
     protected $table = 'relasi';
 
-    public function penyakit()
+    public function kanker()
     {
-        return $this->belongsTo(Penyakit::class, 'id_penyakit');
+        return $this->belongsTo(Stadium::class, 'id_kanker_serviks');
     }
 
     public function gejala()

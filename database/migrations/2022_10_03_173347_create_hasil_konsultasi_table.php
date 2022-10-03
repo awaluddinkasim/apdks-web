@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_user');
             $table->foreignId('id_kanker_serviks')->nullable();
+            $table->enum('resiko', ['rendah', 'sedang', 'tinggi'])->default('rendah');
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users')
