@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="form-group">
-                        <label for="jenisPenyakit">Nama Penyakit</label>
+                        <label for="jenisPenyakit">Penyakit</label>
                         <select name="jenis-penyakit" id="jenisPenyakit">
                             <option value="" selected hidden>Pilih</option>
                             @foreach ($daftarPenyakit as $penyakit)
