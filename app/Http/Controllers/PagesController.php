@@ -72,6 +72,12 @@ class PagesController extends Controller
                 return redirect()->back()->with('success', 'Input data berhasil');
 
             case 'relasi':
+                $check = Relasi::where('id_penyakit', $request->penyakit)->where('id_gejala', $request->gejala)->first();
+
+                if ($check) {
+                    return redirect()->back()->with('failed', 'Relasi sudah terdaftar sebelumnya');
+                }
+
                 $relasi = new Relasi();
                 $relasi->id_penyakit = $request->penyakit;
                 $relasi->id_gejala = $request->gejala;
