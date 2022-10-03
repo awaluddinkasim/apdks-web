@@ -65,4 +65,13 @@ class AuthController extends Controller
             'message' => 'Username atau Password salah'
         ], 401);
     }
+
+    public function userLogout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'Berhasil'
+        ], 200);
+    }
 }
