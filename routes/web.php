@@ -23,6 +23,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/daftar-pengguna', [PagesController::class, 'penggunaUpdate'])->name('user.update');
     Route::delete('/daftar-pengguna', [PagesController::class, 'penggunaDelete'])->name('user.delete');
 
+    Route::get('/laporan-statistik', [PagesController::class, 'laporanStatistik'])->name('laporan-statistik');
+    Route::get('/laporan-konsultasi', [PagesController::class, 'laporanKonsultasi'])->name('laporan-konsultasi');
+
     Route::get('/profil', [PagesController::class, 'profil'])->name('profil');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 

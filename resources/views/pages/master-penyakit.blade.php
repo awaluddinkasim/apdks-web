@@ -21,11 +21,11 @@
     @endif
 
     <div class="row">
-        <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center">
+        <div class="col-md-5 d-none d-md-flex align-items-center justify-content-center">
             <img src="{{ asset('assets/img/med_res.svg') }}" alt="" class="w-75">
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-7">
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-end align-items-center mb-3">

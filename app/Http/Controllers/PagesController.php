@@ -128,6 +128,16 @@ class PagesController extends Controller
         return redirect()->back()->with('success', 'Pengguna berhasil dihapus');
     }
 
+    public function laporanStatistik()
+    {
+        return view('pages.laporan-statistik');
+    }
+
+    public function laporanKonsultasi()
+    {
+        return view('pages.laporan-konsultasi');
+    }
+
     public function profil()
     {
         return view('pages.profil');

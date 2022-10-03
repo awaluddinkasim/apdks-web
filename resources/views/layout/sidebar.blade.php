@@ -56,14 +56,14 @@
         Laporan
     </div>
 
-    <li class="nav-item">
-        <a class="nav-link" href="#">
+    <li class="nav-item {{ Request::is('laporan-statistik') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('laporan-statistik') }}">
             <i class="fas fa-fw fa-chart-bar"></i>
-            <span>Laporan Penyakit</span></a>
+            <span>Laporan Statistik</span></a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="#">
+    <li class="nav-item {{ Request::is('laporan-konsultasi') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('laporan-konsultasi') }}">
             <i class="fas fa-fw fa-table"></i>
             <span>Laporan Konsultasi</span></a>
     </li>
