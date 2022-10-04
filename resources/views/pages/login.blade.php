@@ -42,6 +42,15 @@
                                         <h1 class="h4 text-gray-900">Selamat Datang!</h1>
                                         <h6 class="mb-4">{{ config('app.name') }}</h6>
                                     </div>
+                                    @if (Session::has('failed'))
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            {{ Session::get('failed') }}.
+                                            <button type="button" class="close" data-dismiss="alert"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    @endif
                                     <form class="user" method="POST" action="{{ route('authenticate') }}">
                                         @csrf
                                         <div class="form-group">
