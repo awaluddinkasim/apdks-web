@@ -68,46 +68,57 @@ class ApiController extends Controller
             $hasil[$res->id] = $kanker[$result] / $res->relasi->count() * 100;
         }
 
-        // Mengambil nilai maksimum dari angka stadium untuk
-        // mengambil stadium tertinggi apabila ada lebih dari
-        // satu yang memiliki persentase yang sama
-        $maxValue = max($hasil);
-        $maxKey = max(array_keys($hasil));
+        if (count($hasil)) {
+            // Mengambil nilai maksimum dari angka stadium untuk
+            // mengambil stadium tertinggi apabila ada lebih dari
+            // satu yang memiliki persentase yang sama
+            $maxValue = max($hasil);
+            $maxKey = max(array_keys($hasil));
 
-        $filterHasil = Arr::where($hasil, function($value, $key) use($maxValue, $maxKey) {
-            return $value == $maxValue && $key == $maxKey;
-        });
+            // Filter hasil yang memliki nilai tertinggi
+            $filterHasil = Arr::where($hasil, function($value, $key) use($maxValue) {
+                return $value == $maxValue;
+            });
 
-        $idKanker = array_keys($filterHasil)[0];
-        $persentase = $filterHasil[$idKanker];
+            // Apabila hasil filter lebih dari satu, filter dengan stadium tertinggi
+            if (count($filterHasil) > 1) {
+                $filterHasil = Arr::where($filterHasil, function($value, $key) use($maxValue, $maxKey) {
+                    return $key == $maxKey;
+                });
+            }
 
-        // Dinyatakan positif apabila persentase lebih atau sama dengan nilai yang tercantum
-        if ($persentase >= 80) {
-            HasilKonsultasi::where('id_user', $id)->delete();
+            $idKanker = array_keys($filterHasil)[0];
+            $persentase = $filterHasil[$idKanker];
 
-            $h = new HasilKonsultasi();
-            $h->id_user = $id;
-            $h->id_kanker_serviks = $idKanker;
-            $h->resiko = 'tinggi';
-            $h->save();
-        } elseif ($persentase >= 50) {
-            HasilKonsultasi::where('id_user', $id)->delete();
+            // Dinyatakan positif apabila persentase lebih atau sama dengan nilai yang tercantum
+            if ($persentase >= 80) {
+                HasilKonsultasi::where('id_user', $id)->delete();
 
-            $h = new HasilKonsultasi();
-            $h->id_user = $id;
-            $h->resiko = 'sedang';
-            $h->save();
-        } else {
-            HasilKonsultasi::where('id_user', $id)->delete();
+                $h = new HasilKonsultasi();
+                $h->id_user = $id;
+                $h->id_kanker_serviks = $idKanker;
+                $h->resiko = 'tinggi';
+                $h->save();
+            } elseif ($persentase >= 50) {
+                HasilKonsultasi::where('id_user', $id)->delete();
 
-            $h = new HasilKonsultasi();
-            $h->id_user = $id;
-            $h->save();
+                $h = new HasilKonsultasi();
+                $h->id_user = $id;
+                $h->id_kanker_serviks = $idKanker;
+                $h->resiko = 'sedang';
+                $h->save();
+            } else {
+                HasilKonsultasi::where('id_user', $id)->delete();
+
+                $h = new HasilKonsultasi();
+                $h->id_user = $id;
+                $h->save();
+            }
         }
 
         return response()->json([
             'message' => 'Berhasil',
-            'hasil' => $hasil,
+            'hasil' => $h,
         ], 200);
     }
 

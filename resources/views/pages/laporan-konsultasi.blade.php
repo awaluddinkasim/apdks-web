@@ -17,7 +17,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Pengguna</th>
-                                <th>Status Resiko</th>
+                                <th>Tingkat Probabilitas</th>
                                 <th>Jenis Kanker</th>
                             </tr>
                         </thead>
@@ -25,10 +25,10 @@
                             @foreach ($daftarKonsultasi as $konsultasi)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $gejala->user->nama }}</td>
-                                    <td>{{ Str::ucfirst($gejala->resiko) }}</td>
+                                    <td>{{ $konsultasi->user->nama }}</td>
+                                    <td>{{ Str::ucfirst($konsultasi->resiko) }}</td>
                                     <td>
-                                        {{ $gejala->id_kanker_serviks ? 'Kanker Serviks Stadium ' . $gejala->kanker->stadium : '-' }}
+                                        {{ $konsultasi->id_kanker_serviks ? 'Kanker Serviks Stadium ' . $gejala->kanker->stadium : '-' }}
                                     </td>
                                 </tr>
                             @endforeach
