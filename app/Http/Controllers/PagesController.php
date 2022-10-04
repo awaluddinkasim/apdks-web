@@ -165,7 +165,7 @@ class PagesController extends Controller
             $user->nama = $request->nama;
             $user->tgl_lahir = $request->tgl_lahir;
             $user->username = $request->username;
-            if ($request->has('password')) {
+            if ($request->password) {
                 $user->password = bcrypt($request->password);
             }
             $user->save();
@@ -224,7 +224,7 @@ class PagesController extends Controller
             $admin = Admin::find(auth()->user()->id);
             $admin->nama = $request->nama;
             $admin->username = $request->username;
-            if ($request->has('password')) {
+            if ($request->password) {
                 $admin->password = bcrypt($request->password);
             }
             $admin->save();

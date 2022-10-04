@@ -43,6 +43,7 @@
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" name="password">
+                            <small class="text-muted">Kosongkan jika tak ingin mengganti password</small>
                         </div>
                         <div class="clearfix">
                             <button class="btn btn-primary float-right" type="submit">Simpan</button>
