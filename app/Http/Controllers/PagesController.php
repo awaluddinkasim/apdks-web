@@ -67,13 +67,15 @@ class PagesController extends Controller
     {
         switch ($jenis) {
             case 'stadium':
-                $check = Stadium::where('stadium', $request->stadium)->first();
+                $romanStadium = is_numeric($request->stadium) ? numberToRoman($request->stadium) : $request->stadium;
+
+                $check = Stadium::where('stadium', $romanStadium)->first();
                 if ($check) {
                     return redirect()->back()->with('failed', "Kanker dengan stadium tersebut sudah terinput sebelumnya");
                 }
 
                 $stadium = new Stadium();
-                $stadium->stadium = $request->stadium;
+                $stadium->stadium = $romanStadium;
                 $stadium->keterangan = $request->keterangan;
                 $stadium->solusi = $request->solusi;
                 $stadium->save();

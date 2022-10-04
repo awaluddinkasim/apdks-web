@@ -65,30 +65,33 @@ class ApiController extends Controller
         // Loop hasil perhitungan konsultasi untuk menghitung persentase
         foreach (array_keys($kanker) as $result) {
             $res = Stadium::where('stadium', $result)->first();
-            $hasil[$res->id] = $kanker[$result] / $res->relasi->count() * 100;
+            $hasil[$res->id] = [
+                ["stadium"] => romanToNumber($res->stadium),
+                ["persentase"] => $kanker[$result] / $res->relasi->count() * 100
+            ];
         }
 
         if (count($hasil)) {
             // Mengambil nilai maksimum dari angka stadium untuk
             // mengambil stadium tertinggi apabila ada lebih dari
             // satu yang memiliki persentase yang sama
-            $maxValue = max($hasil);
-            $maxKey = max(array_keys($hasil));
+            $maxStadium = max(array_column($hasil, "stadium"));
+            $maxValue = max(array_column($hasil, "persentase"));
 
             // Filter hasil yang memliki nilai tertinggi
             $filterHasil = Arr::where($hasil, function($value, $key) use($maxValue) {
-                return $value == $maxValue;
+                return $value["persentase"] == $maxValue;
             });
 
             // Apabila hasil filter lebih dari satu, filter dengan stadium tertinggi
             if (count($filterHasil) > 1) {
-                $filterHasil = Arr::where($filterHasil, function($value, $key) use($maxValue, $maxKey) {
-                    return $key == $maxKey;
+                $filterHasil = Arr::where($filterHasil, function($value, $key) use($maxStadium) {
+                    return $value["stadium"] == $maxStadium;
                 });
             }
 
             $idKanker = array_keys($filterHasil)[0];
-            $persentase = $filterHasil[$idKanker];
+            $persentase = $filterHasil[$idKanker]["persentase"];
 
             // Dinyatakan positif apabila persentase lebih atau sama dengan nilai yang tercantum
             if ($persentase >= 80) {
