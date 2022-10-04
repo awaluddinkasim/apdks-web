@@ -10,6 +10,7 @@ use App\Models\Relasi;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PagesController extends Controller
 {
@@ -202,6 +203,14 @@ class PagesController extends Controller
         ];
 
         return view('pages.laporan-konsultasi', $data);
+    }
+
+    public function laporanKonsultasiExport()
+    {
+        $filename = 'random'.'.pdf';
+        $pdf = Pdf::loadView('export.pdf');
+
+        return $pdf->download($filename);
     }
 
     public function profil()

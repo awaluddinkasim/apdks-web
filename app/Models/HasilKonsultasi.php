@@ -9,4 +9,14 @@ class HasilKonsultasi extends Model
 {
     use HasFactory;
     protected $table = 'hasil_konsultasi';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
+    public function kanker()
+    {
+        return $this->belongsTo(Stadium::class, 'id_kanker_serviks');
+    }
 }
