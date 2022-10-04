@@ -20,7 +20,7 @@
         </div>
     @endif
 
-    <div class="card">
+    <div class="card mb-3">
         <div class="card-body">
             <div class="d-flex justify-content-end align-items-center mb-3">
                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#penyakitModal">

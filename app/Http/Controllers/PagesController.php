@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Gejala;
+use App\Models\HasilKonsultasi;
 use App\Models\Stadium;
 use App\Models\Relasi;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
@@ -15,16 +18,24 @@ class PagesController extends Controller
         $data = [
             'pengguna' => User::all()->count(),
             'gejala' => Gejala::all()->count(),
-            'konsul' => 0,
+            'konsul' => HasilKonsultasi::all()->count(),
         ];
 
         return view('pages.dashboard', $data);
     }
 
-    public function masterData($jenis)
+    public function masterData(Request $request, $jenis)
     {
         switch ($jenis) {
             case 'stadium':
+                if ($request->has('id')) {
+                    $data = [
+                        'kanker' => Stadium::find($request->id)
+                    ];
+
+                    return view('pages.master-kanker-edit', $data);
+                }
+
                 $data = [
                     'daftarKanker' => Stadium::orderBy('stadium')->get()
                 ];
@@ -95,6 +106,17 @@ class PagesController extends Controller
         }
     }
 
+    public function masterKankerUpdate(Request $request)
+    {
+        $kanker = Stadium::find($request->id);
+        $kanker->penyebab = $request->penyebab;
+        $kanker->keterangan = $request->keterangan;
+        $kanker->solusi = $request->solusi;
+        $kanker->update();
+
+        return redirect()->route('master-data', 'stadium')->with('success', 'Update data berhasil');
+    }
+
     public function masterDataDelete(Request $request, $jenis)
     {
         switch ($jenis) {
@@ -118,8 +140,16 @@ class PagesController extends Controller
         }
     }
 
-    public function daftarPengguna()
+    public function daftarPengguna(Request $request)
     {
+        if ($request->has('id')) {
+            $data = [
+                'user' => User::find($request->id)
+            ];
+
+            return view('pages.user-edit', $data);
+        }
+
         $data = [
             'users' => User::orderBy('nama')->get()
         ];
@@ -129,7 +159,22 @@ class PagesController extends Controller
 
     public function penggunaUpdate(Request $request)
     {
-        return redirect()->back()->with('success', 'Update pengguna berhasil');
+        try {
+            $user = User::find($request->id);
+            $user->nama = $request->nama;
+            $user->tgl_lahir = $request->tgl_lahir;
+            $user->username = $request->username;
+            if ($request->has('password')) {
+                $user->password = bcrypt($request->password);
+            }
+            $user->save();
+
+            return redirect()->route('users')->with('success', 'Update pengguna berhasil');
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == "1062") {
+                return redirect()->route('users')->with('failed', 'Username terdaftar pada akun lain');
+            }
+        }
     }
 
     public function penggunaDelete(Request $request)
@@ -141,16 +186,45 @@ class PagesController extends Controller
 
     public function laporanStatistik()
     {
-        return view('pages.laporan-statistik');
+        $data = [
+            'konsultasi' => HasilKonsultasi::all()->count(),
+            'daftarGejala' => Gejala::orderBy('keterangan')->get(),
+            'users' => User::all(),
+        ];
+
+        return view('pages.laporan-statistik', $data);
     }
 
     public function laporanKonsultasi()
     {
-        return view('pages.laporan-konsultasi');
+        $data = [
+            'daftarKonsultasi' => HasilKonsultasi::all(),
+        ];
+
+        return view('pages.laporan-konsultasi', $data);
     }
 
     public function profil()
     {
         return view('pages.profil');
+    }
+
+    public function profilUpdate(Request $request)
+    {
+        try {
+            $admin = Admin::find(auth()->user()->id);
+            $admin->nama = $request->nama;
+            $admin->username = $request->username;
+            if ($request->has('password')) {
+                $admin->password = bcrypt($request->password);
+            }
+            $admin->save();
+
+            return redirect()->back()->with('success', 'Update profil berhasil');
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == "1062") {
+                return redirect()->route('users')->with('failed', 'Username terdaftar pada akun lain');
+            }
+        }
     }
 }

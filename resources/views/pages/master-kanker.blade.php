@@ -20,7 +20,7 @@
         </div>
     @endif
 
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-md-5 d-none d-md-flex align-items-center justify-content-center">
             <img src="{{ asset('assets/img/med_res.svg') }}" alt="" class="w-75">
         </div>
@@ -49,7 +49,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>Kanker Serviks Stadium {{ $kanker->stadium }}</td>
                                         <td class="text-center">
-                                            <button class="btn btn-success btn-sm">
+                                            <button class="btn btn-primary btn-sm" onclick="document.location.href = '{{ Request::url() }}?id={{ $kanker->id }}'">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             <form action="{{ route('master-data.delete', 'stadium') }}" class="d-inline"

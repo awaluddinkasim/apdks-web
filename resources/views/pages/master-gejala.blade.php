@@ -20,7 +20,7 @@
     </div>
     @endif
 
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-md-7">
             <div class="card">
                 <div class="card-body">

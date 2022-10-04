@@ -41,7 +41,7 @@
                                 <td>{{ $user->nama }}</td>
                                 <td>{{ $user->umur }} Tahun</td>
                                 <td class="text-center">
-                                    <button class="btn btn-primary btn-sm">
+                                    <button class="btn btn-primary btn-sm" onclick="document.location.href = '{{ Request::url() }}?id={{ $user->id }}'">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <form action="{{ route('user.delete') }}" method="POST" class="d-inline">

@@ -17,6 +17,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/master/{jenis}', [PagesController::class, 'masterData'])->name('master-data');
     Route::post('/master/{jenis}', [PagesController::class, 'masterDataStore'])->name('master-data.store');
+    Route::put('/master/stadium', [PagesController::class, 'masterKankerUpdate'])->name('master-kanker.update');
     Route::delete('/master/{jenis}', [PagesController::class, 'masterDataDelete'])->name('master-data.delete');
 
     Route::get('/daftar-pengguna', [PagesController::class, 'daftarPengguna'])->name('users');
@@ -27,6 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/laporan-konsultasi', [PagesController::class, 'laporanKonsultasi'])->name('laporan-konsultasi');
 
     Route::get('/profil', [PagesController::class, 'profil'])->name('profil');
+    Route::put('/profil', [PagesController::class, 'profilUpdate'])->name('profil.update');
+
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::middleware('ajax')->group(function () {

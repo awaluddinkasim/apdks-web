@@ -14,4 +14,9 @@ class Gejala extends Model
     {
         return $this->hasOne(Relasi::class, 'id_gejala');
     }
+
+    public function keluhan()
+    {
+        return $this->hasMany(Konsultasi::class, 'id_gejala')->where('keluhan', 'Ya');
+    }
 }
