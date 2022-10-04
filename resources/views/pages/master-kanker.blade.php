@@ -91,20 +91,16 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="stadium">Stadium Kanker</label>
-                            <input type="number" max="4" class="form-control" id="stadium" name="stadium" autocomplete="off"
+                            <input type="text" class="form-control" id="stadium" name="stadium" autocomplete="off"
                                 required>
-                        </div>
-                        <div class="form-group">
-                            <label for="penyebab">Penyebab</label>
-                            <textarea class="form-control" id="penyebab" rows="3" name="penyebab" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="keterangan">Keterangan</label>
-                            <textarea class="form-control" id="keterangan" rows="3" name="keterangan" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="solusi">Solusi</label>
                             <textarea class="form-control" id="solusi" rows="3" name="solusi" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="keterangan">Keterangan</label>
+                            <textarea class="form-control" id="keterangan" rows="3" name="keterangan" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

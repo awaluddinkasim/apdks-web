@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('kanker_serviks', function (Blueprint $table) {
             $table->id();
-            $table->string('stadium', 1);
-            $table->text('penyebab');
+            $table->string('stadium');
             $table->text('keterangan');
             $table->text('solusi');
             $table->timestamps();

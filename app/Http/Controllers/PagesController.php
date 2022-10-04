@@ -74,7 +74,6 @@ class PagesController extends Controller
 
                 $stadium = new Stadium();
                 $stadium->stadium = $request->stadium;
-                $stadium->penyebab = $request->penyebab;
                 $stadium->keterangan = $request->keterangan;
                 $stadium->solusi = $request->solusi;
                 $stadium->save();
@@ -110,7 +109,6 @@ class PagesController extends Controller
     public function masterKankerUpdate(Request $request)
     {
         $kanker = Stadium::find($request->id);
-        $kanker->penyebab = $request->penyebab;
         $kanker->keterangan = $request->keterangan;
         $kanker->solusi = $request->solusi;
         $kanker->update();
