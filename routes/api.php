@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'userLogin']);
-Route::get('/register', [AuthController::class, 'userRegister']);
+Route::post('/register', [AuthController::class, 'userRegister']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', function (Request $request) {
