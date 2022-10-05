@@ -145,7 +145,7 @@ class ApiController extends Controller
         try {
             $user = User::find($request->user()->id);
             $user->username = $request->username;
-            if ($request->has('password')) {
+            if ($request->password) {
                 $user->password = bcrypt($request->password);
             }
             $user->nama = $request->nama;
