@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -34,16 +35,27 @@ class AuthController extends Controller
 
     public function userRegister(Request $request)
     {
-        $user = new User();
-        $user->nama = $request->nama;
-        $user->username = $request->username;
-        $user->password = bcrypt($request->password);
-        $user->tgl_lahir = $request->tgl_lahir;
-        $user->save();
+        try {
+            $user = new User();
+            $user->nama = $request->nama;
+            $user->username = $request->username;
+            $user->password = bcrypt($request->password);
+            $user->tgl_lahir = $request->tgl_lahir;
+            $user->save();
 
-        return response()->json([
-            'message' => "success"
-        ], 200);
+            return response()->json([
+                'message' => "success"
+            ], 200);
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == "1062") {
+                return response()->json([
+                    'message' => "Username sudah terpakai"
+                ], 405);
+            }
+            return response()->json([
+                'message' => "terjadi kesalahan"
+            ], 405);
+        }
     }
 
     public function userLogin(Request $request)
