@@ -7,6 +7,7 @@ use App\Models\HasilKonsultasi;
 use App\Models\Konsultasi;
 use App\Models\Relasi;
 use App\Models\Stadium;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
@@ -145,7 +146,7 @@ class ApiController extends Controller
             $user = User::find($request->user()->id);
             $user->username = $request->username;
             if ($request->has('password')) {
-                $user->username = bcrypt($request->username);
+                $user->password = bcrypt($request->password);
             }
             $user->nama = $request->nama;
             $user->tgl_lahir = $request->tgl_lahir;
