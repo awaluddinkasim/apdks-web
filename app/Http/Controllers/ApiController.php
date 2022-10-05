@@ -66,8 +66,8 @@ class ApiController extends Controller
         foreach (array_keys($kanker) as $result) {
             $res = Stadium::where('stadium', $result)->first();
             $hasil[$res->id] = [
-                ["stadium"] => romanToNumber($res->stadium),
-                ["persentase"] => $kanker[$result] / $res->relasi->count() * 100
+                "stadium" => romanToNumber($res->stadium),
+                "persentase" => $kanker[$result] / $res->relasi->count() * 100
             ];
         }
 
@@ -119,9 +119,11 @@ class ApiController extends Controller
             }
         }
 
+        $hasilAkhir = HasilKonsultasi::find($h->id);
+
         return response()->json([
             'message' => 'Berhasil',
-            'hasil' => $h,
+            'hasil' => $hasilAkhir,
         ], 200);
     }
 

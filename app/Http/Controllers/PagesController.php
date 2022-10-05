@@ -67,7 +67,7 @@ class PagesController extends Controller
     {
         switch ($jenis) {
             case 'stadium':
-                $romanStadium = is_numeric($request->stadium) ? numberToRoman($request->stadium) : $request->stadium;
+                $romanStadium = is_numeric($request->stadium) ? numberToRoman($request->stadium) : strtoupper($request->stadium);
 
                 $check = Stadium::where('stadium', $romanStadium)->first();
                 if ($check) {

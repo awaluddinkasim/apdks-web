@@ -10,6 +10,8 @@ class HasilKonsultasi extends Model
     use HasFactory;
     protected $table = 'hasil_konsultasi';
 
+    protected $with = ['kanker'];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user');
