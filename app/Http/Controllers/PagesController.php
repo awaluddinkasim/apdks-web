@@ -207,8 +207,12 @@ class PagesController extends Controller
 
     public function laporanKonsultasiExport()
     {
-        $filename = 'random'.'.pdf';
-        $pdf = Pdf::loadView('export.pdf');
+        $data = [
+            'daftarKonsultasi' => HasilKonsultasi::all(),
+        ];
+
+        $filename = 'laporan-'.time().'.pdf';
+        $pdf = Pdf::loadView('export.pdf', $data)->setPaper('a4');
 
         return $pdf->download($filename);
     }

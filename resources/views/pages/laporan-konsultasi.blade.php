@@ -7,7 +7,7 @@
         <div class="card mb-3">
             <div class="card-body">
                 <div class="d-flex justify-content-end align-items-center mb-3">
-                    <button type="button" class="btn btn-primary btn-sm" onclick="window.open('{{ route('laporan-konsultasi.export') }}', '_blank')">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="document.location.href = '{{ route('laporan-konsultasi.export') }}'">
                         Export PDF
                     </button>
                 </div>
@@ -28,7 +28,7 @@
                                     <td>{{ $konsultasi->user->nama }}</td>
                                     <td>{{ Str::ucfirst($konsultasi->resiko) }}</td>
                                     <td>
-                                        {{ $konsultasi->id_kanker_serviks ? 'Kanker Serviks Stadium ' . $gejala->kanker->stadium : '-' }}
+                                        {{ $konsultasi->id_kanker_serviks ? 'Kanker Serviks Stadium ' . $konsultasi->kanker->stadium : '-' }}
                                     </td>
                                 </tr>
                             @endforeach
