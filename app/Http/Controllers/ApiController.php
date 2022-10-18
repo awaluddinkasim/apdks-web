@@ -140,6 +140,16 @@ class ApiController extends Controller
         ], 200);
     }
 
+    public function dokter()
+    {
+        $dokter = Dokter::first();
+
+        return response()->json([
+            'message' => 'berhasil',
+            'dokter' => $dokter,
+        ], 200);
+    }
+
     public function updateProfil(Request $request)
     {
         try {

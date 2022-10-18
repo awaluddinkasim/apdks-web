@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Konsultasi</title>
+    <title>Laporan Diagnosa</title>
     <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div class="text-center">
-        <h4>Laporan Hasil Konsultasi</h4>
+        <h4>Laporan Hasil Diagnosa</h4>
     </div>
     <table class="table table-bordered" width="100%" cellspacing="0">
         <thead>

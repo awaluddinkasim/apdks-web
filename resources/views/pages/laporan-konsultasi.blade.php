@@ -1,13 +1,13 @@
 @extends('layout.app')
 
-@section('title', 'Laporan Konsultasi')
+@section('title', 'Laporan Diagnosa')
 
 @section('content')
     @if ($daftarKonsultasi->count())
         <div class="card mb-3">
             <div class="card-body">
                 <div class="d-flex justify-content-end align-items-center mb-3">
-                    <button type="button" class="btn btn-primary btn-sm" onclick="document.location.href = '{{ route('laporan-konsultasi.export') }}'">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="document.location.href = '{{ route('laporan-diagnosa.export') }}'">
                         Export PDF
                     </button>
                 </div>

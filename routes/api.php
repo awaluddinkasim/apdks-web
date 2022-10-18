@@ -19,6 +19,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/konsultasi', [ApiController::class, 'konsultasi']);
     Route::get('/hasil', [ApiController::class, 'hasil']);
 
+    Route::get('/dokter', [ApiController::class, 'dokter']);
+
     Route::put('/update-profil', [ApiController::class, 'updateProfil']);
 
     Route::get('/logout', [AuthController::class, 'userLogout']);

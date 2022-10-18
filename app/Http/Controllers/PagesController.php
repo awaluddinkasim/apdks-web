@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Dokter;
 use App\Models\Gejala;
 use App\Models\HasilKonsultasi;
 use App\Models\Stadium;
@@ -11,6 +12,7 @@ use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\File;
 
 class PagesController extends Controller
 {
@@ -196,7 +198,7 @@ class PagesController extends Controller
         return view('pages.laporan-statistik', $data);
     }
 
-    public function laporanKonsultasi()
+    public function laporanDiagnosa()
     {
         $data = [
             'daftarKonsultasi' => HasilKonsultasi::all(),
@@ -205,7 +207,50 @@ class PagesController extends Controller
         return view('pages.laporan-konsultasi', $data);
     }
 
-    public function laporanKonsultasiExport()
+    public function dokter()
+    {
+        $data = [
+            'dokter' => Dokter::first()
+        ];
+
+        return view('pages.dokter', $data);
+    }
+
+    public function dokterUpdate(Request $request)
+    {
+        $file = $request->file('foto');
+        if ($file) {
+            $filename = 'profil.'.$file->extension();
+        }
+
+        $dokter = Dokter::first();
+
+        if ($dokter) {
+            $dokter->nama = $request->nama;
+            $dokter->email = $request->email;
+            $dokter->no_hp = $request->no_hp;
+            if ($file) {
+                File::delete(public_path('doctor/'.$dokter->foto));
+                $file->move(public_path('doctor'), $filename);
+                $dokter->foto = $filename;
+            }
+            $dokter->update();
+        } else {
+            $dokter = new Dokter();
+            $dokter->nama = $request->nama;
+            $dokter->email = $request->email;
+            $dokter->no_hp = $request->no_hp;
+            if ($file) {
+                $file->move(public_path('doctor'), $filename);
+                $dokter->foto = $filename;
+            }
+            $dokter->save();
+        }
+
+        return redirect()->back()->with('success', 'Update data berhasil');
+    }
+
+    public function laporanDiagnosaExport()
     {
         $data = [
             'daftarKonsultasi' => HasilKonsultasi::all(),

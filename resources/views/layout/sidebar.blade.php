@@ -43,6 +43,12 @@
         </div>
     </li>
 
+    <li class="nav-item {{ Request::is('dokter') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('dokter') }}">
+            <i class="fas fa-fw fa-hospital-user"></i>
+            <span>Data Dokter</span></a>
+    </li>
+
     <li class="nav-item {{ Request::is('daftar-pengguna') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('users') }}">
             <i class="fas fa-fw fa-users"></i>
@@ -62,10 +68,10 @@
             <span>Laporan Statistik</span></a>
     </li>
 
-    <li class="nav-item {{ Request::is('laporan-konsultasi') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('laporan-konsultasi') }}">
+    <li class="nav-item {{ Request::is('laporan-diagnosa') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('laporan-diagnosa') }}">
             <i class="fas fa-fw fa-table"></i>
-            <span>Laporan Konsultasi</span></a>
+            <span>Laporan Diagnosa</span></a>
     </li>
 
     <!-- Divider -->
