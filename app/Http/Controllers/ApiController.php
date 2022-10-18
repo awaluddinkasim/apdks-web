@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dokter;
 use App\Models\Gejala;
 use App\Models\HasilKonsultasi;
 use App\Models\Konsultasi;
