@@ -15,8 +15,10 @@ Route::middleware('auth:sanctum')->group(function () {
         ], 200);
     });
 
+    Route::get('/gejala-utama', [ApiController::class, 'gejalaUtama']);
     Route::get('/gejala', [ApiController::class, 'gejala']);
-    Route::post('/konsultasi', [ApiController::class, 'konsultasi']);
+    Route::post('/diagnosa', [ApiController::class, 'diagnosa']);
+    Route::post('/diagnosa-lanjut', [ApiController::class, 'diagnosaLanjut']);
     Route::get('/hasil', [ApiController::class, 'hasil']);
 
     Route::get('/dokter', [ApiController::class, 'dokter']);

@@ -41,7 +41,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($daftarGejala as $gejala)
-                                    <tr>
+                                    <tr class="{{ $gejala->gejala_utama ? 'bg-info text-white' : '' }}">
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $gejala->keterangan }}</td>
                                         <td class="text-center">
@@ -83,9 +83,17 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="gejala">Gejala</label>
+                            <label for="gejala">Keterangan Gejala</label>
                             <input type="text" class="form-control" id="gejala" name="gejala" autocomplete="off"
                                 required>
+                        </div>
+                        <div class="form-group">
+                            <label for="utama">Gejala Utama</label>
+                            <select class="custom-select" name="utama" id="utama" required>
+                                <option value="" selected hidden>Pilih</option>
+                                <option value="1">Ya</option>
+                                <option value="0">Bukan</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">

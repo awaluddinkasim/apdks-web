@@ -47,7 +47,7 @@ class PagesController extends Controller
 
             case 'gejala':
                 $data = [
-                    'daftarGejala' => Gejala::orderBy('keterangan')->get()
+                    'daftarGejala' => Gejala::orderBy('gejala_utama', 'DESC')->orderBy('keterangan')->get()
                 ];
 
                 return view('pages.master-gejala', $data);
@@ -55,7 +55,7 @@ class PagesController extends Controller
             case 'relasi':
                 $data = [
                     'daftarKanker' => Stadium::orderBy('stadium')->get(),
-                    'daftarGejala' => Gejala::doesntHave('relasi')->orderBy('keterangan')->get()
+                    'daftarGejala' => Gejala::where('gejala_utama', '0')->doesntHave('relasi')->orderBy('keterangan')->get()
                 ];
 
                 return view('pages.master-relasi', $data);
@@ -87,6 +87,7 @@ class PagesController extends Controller
             case 'gejala':
                 $gejala = new Gejala();
                 $gejala->keterangan = $request->gejala;
+                $gejala->gejala_utama = $request->utama;
                 $gejala->save();
 
                 return redirect()->back()->with('success', 'Input data berhasil');
@@ -191,7 +192,7 @@ class PagesController extends Controller
     {
         $data = [
             'konsultasi' => HasilKonsultasi::all()->count(),
-            'daftarGejala' => Gejala::orderBy('keterangan')->get(),
+            'daftarGejala' => Gejala::where('gejala_utama', '0')->orderBy('keterangan')->get(),
             'users' => User::all(),
         ];
 

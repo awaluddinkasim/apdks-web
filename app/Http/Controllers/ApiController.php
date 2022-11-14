@@ -15,16 +15,51 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-    public function gejala()
+    public function gejalaUtama()
     {
         $data = [
-            'daftarGejala' => Gejala::has('relasi')->orderBy("keterangan")->get()
+            'daftarGejala' => Gejala::where('gejala_utama', '1')->orderBy("keterangan")->get()
         ];
 
         return response()->json($data, 200);
     }
 
-    public function konsultasi(Request $request)
+    public function gejala()
+    {
+        $data = [
+            'daftarGejala' => Gejala::where('gejala_utama', '0')->has('relasi')->orderBy("keterangan")->get()
+        ];
+
+        return response()->json($data, 200);
+    }
+
+    public function diagnosa(Request $request)
+    {
+        $id = $request->user()->id;
+
+        $poin = 0;
+
+        foreach ($request->keluhan as $keluhan) {
+            if ($keluhan['answer'] == "Ya") {
+                $poin += 1;
+            }
+        }
+
+        if ($poin / count($request->keluhan) != 1) {
+            HasilKonsultasi::where('id_user', $id)->delete();
+
+            $h = new HasilKonsultasi();
+            $h->id_user = $id;
+            $h->save();
+            $hasilAkhir = HasilKonsultasi::find($h->id);
+        }
+
+        return response()->json([
+            'hasil' => isset($hasilAkhir) ? $hasilAkhir : null,
+        ], 200);
+    }
+
+    public function diagnosaLanjut(Request $request)
     {
         $id = $request->user()->id;
 

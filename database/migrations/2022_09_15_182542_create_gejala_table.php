@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('gejala', function (Blueprint $table) {
             $table->id();
             $table->text('keterangan');
+            $table->enum('gejala_utama', ['0', '1'])->default('0');
             $table->timestamps();
         });
     }
